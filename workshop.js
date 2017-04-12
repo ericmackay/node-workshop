@@ -31,11 +31,20 @@ function getAddressPosition(address) {
 }
 
 function getCurrentTemperatureAtPosition(position) {
-
+    return request('https://api.darksky.net/forecast/e3b964beb2d21faaada2d9b609c2e885/' + position.lat, position.lng)
+    .then(function(response) {
+        var data = JSON.parse(response);
+        return data.currently.temperature;
+    });
 }
 
 function getCurrentTemperature(address) {
+    return request('https://api.darksky.net/forecast/e3b964beb2d21faaada2d9b609c2e885/' + address)
+    .then(function(response) {
+        var data = JSON.parse(response);
 
+        return data.currently.temperature;
+    });
 }
 
 function getDistanceFromIss(address) {
