@@ -29,7 +29,7 @@ function getAddressPosition(address) {
 }
 
 function getCurrentTemperatureAtPosition(position) {
-    return request('https://api.darksky.net/forecast/e3b964beb2d21faaada2d9b609c2e885/' + position.lat, position.lng).then(response => {
+    return request('https://api.darksky.net/forecast/e3b964beb2d21faaada2d9b609c2e885/' + position.lat + ',' + position.lng).then(response => {
         var data = JSON.parse(response);
         return data.currently.temperature;
     });
