@@ -36,13 +36,19 @@ function getCurrentTemperatureAtPosition(position) {
 }
 
 
-function getCurrentTemperature(address) {
-    return request('https://api.darksky.net/forecast/e3b964beb2d21faaada2d9b609c2e885/' + address).then(response => {
-        var data = JSON.parse(response);
+// function getCurrentTemperature(address) {
+//     return request('https://api.darksky.net/forecast/e3b964beb2d21faaada2d9b609c2e885/' + address).then(response => {
+//         var data = JSON.parse(response);
+//         return data.currently.temperature;
+//     });
+// }
 
-        return data.currently.temperature;
-    });
+function getCurrentTemperature(address) {
+    return getAddressPosition(address)
+    .then(getCurrentTemperatureAtPosition);
 }
+/// calling then returns a function (get currentTemperatureAtPosition) that returns a promise.
+
 
 function getDistanceFromIss(address) {
     return Promise.all([getIssPosition(), getAddressPosition(address)]).then(results => {
@@ -53,6 +59,7 @@ function getDistanceFromIss(address) {
 
 // Returns a new promise using that data when the previous promises are finished executing.
 }
+
 
 exports.getIssPosition = getIssPosition;
 exports.getAddressPosition = getAddressPosition;
